@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search by ID</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            background-color: #1e1e2f;
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+        }
+        #searchInput {
+            margin-bottom: 20px;
+            width: 100%;
+            background-color: #2a2a3b;
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        #searchInput::placeholder {
+            color: #aaaaaa;
+        }
+        .table-responsive {
+            background-color: #2a2a3b;
+            padding: 20px;
+            border-radius: 10px;
+            width: 100%;
+            height: calc(100% - 70px); /* Arama çubuğu ve boşluk için alan bırak */
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            white-space: nowrap; /* Hücre içeriğinin ekstra satıra geçmesini önler */
+            color: #ffffff;
+            border: none;
+        }
+        th {
+            background-color: #3b3b4f;
+            border-bottom: 2px solid #5a5a6f;
+        }
+        td {
+            border-bottom: 1px solid #5a5a6f;
+        }
+        tr:hover {
+            background-color: #3b3b4f;
+        }
+        th, td {
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <h2 class="text-center">Search by ID</h2>
+    <input type="
