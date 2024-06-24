@@ -7,29 +7,30 @@
     <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            margin: 20px;
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
             background-color: #1e1e2f;
             color: #ffffff;
             font-family: 'Arial', sans-serif;
         }
         #searchInput {
-            margin-bottom: 20px;
+            margin: 0;
             width: 100%;
             background-color: #2a2a3b;
             color: #ffffff;
             border: none;
             padding: 10px;
-            border-radius: 5px;
+            border-radius: 0;
         }
         #searchInput::placeholder {
             color: #aaaaaa;
         }
         .table-responsive {
-            background-color: #2a2a3b;
-            padding: 20px;
-            border-radius: 10px;
             width: 100%;
+            height: calc(100% - 50px); /* Search input height */
             overflow-x: auto;
         }
         table {
@@ -51,14 +52,10 @@
         tr:hover {
             background-color: #3b3b4f;
         }
-        th, td {
-            border-radius: 10px;
-        }
     </style>
 </head>
 <body>
 
-<h2 class="text-center">Search by ID</h2>
 <input type="text" id="searchInput" class="form-control" placeholder="Search for ID...">
 <div class="table-responsive">
     <table id="dataTable" class="table table-bordered table-hover">
