@@ -83,15 +83,15 @@
     // Arama fonksiyonu
     function searchById() {
         const input = document.getElementById('searchInput');
-        const filter = input.value.toUpperCase();
+        const filter = parseInt(input.value, 10);
         const table = document.getElementById('dataTable');
         const tr = table.getElementsByTagName('tr');
 
         for (let i = 1; i < tr.length; i++) {
             const td = tr[i].getElementsByTagName('td')[0]; // Sadece ilk kolon (ID)
             if (td) {
-                const txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                const txtValue = parseInt(td.textContent || td.innerText, 10);
+                if (!isNaN(filter) && txtValue === filter) {
                     tr[i].style.display = '';
                 } else {
                     tr[i].style.display = 'none';
