@@ -9,20 +9,43 @@
     <style>
         body {
             margin: 20px;
+            background-color: #1e1e2f;
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
         }
         #searchInput {
             margin-bottom: 20px;
             width: 100%;
+            background-color: #2a2a3b;
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+        }
+        #searchInput::placeholder {
+            color: #aaaaaa;
+        }
+        .table-responsive {
+            background-color: #2a2a3b;
+            padding: 20px;
+            border-radius: 10px;
         }
         table {
             width: 100%;
+            border-collapse: collapse;
         }
         table, th, td {
             white-space: nowrap; /* Hücre içeriğinin ekstra satıra geçmesini önler */
+            color: #ffffff;
         }
-        th, td {
-            padding: 8px;
-            text-align: left;
+        th {
+            background-color: #3b3b4f;
+            border-bottom: 2px solid #5a5a6f;
+        }
+        td {
+            border-bottom: 1px solid #5a5a6f;
+        }
+        tr:hover {
+            background-color: #3b3b4f;
         }
     </style>
 </head>
@@ -30,7 +53,7 @@
 
 <div class="container-fluid">
     <h2 class="text-center">Search by ID</h2>
-    <input type="text" id="searchInput" class="form-control" onkeyup="searchById()" placeholder="Search for ID...">
+    <input type="text" id="searchInput" class="form-control" placeholder="Search for ID...">
     <div class="table-responsive">
         <table id="dataTable" class="table table-bordered table-hover">
             <thead class="thead-dark">
@@ -52,6 +75,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
+    let debounceTimeout;
+
     // JSON dosyasını yükleyip tabloya ekleme
     fetch('https://raw.githubusercontent.com/Caneryy/Varonve-Rarity/main/varonve-rairty.json')
         .then(response => response.json())
@@ -86,27 +111,32 @@
         })
         .catch(error => console.error('Error fetching JSON:', error));
 
-    // Arama fonksiyonu
+    // Arama fonksiyonu (debounce ile)
     function searchById() {
-        const input = document.getElementById('searchInput');
-        const filter = input.value;
-        const table = document.getElementById('dataTable');
-        const tr = table.getElementsByTagName('tr');
+        clearTimeout(debounceTimeout);
+        debounceTimeout = setTimeout(() => {
+            const input = document.getElementById('searchInput');
+            const filter = input.value;
+            const table = document.getElementById('dataTable');
+            const tr = table.getElementsByTagName('tr');
 
-        for (let i = 1; i < tr.length; i++) {
-            const td = tr[i].getElementsByTagName('td')[1]; // Sadece ikinci kolon (ID)
-            if (td) {
-                const txtValue = td.textContent || td.innerText;
-                if (filter === "") {
-                    tr[i].style.display = '';
-                } else if (txtValue === filter) {
-                    tr[i].style.display = '';
-                } else {
-                    tr[i].style.display = 'none';
+            for (let i = 1; i < tr.length; i++) {
+                const td = tr[i].getElementsByTagName('td')[1]; // Sadece ikinci kolon (ID)
+                if (td) {
+                    const txtValue = td.textContent || td.innerText;
+                    if (filter === "") {
+                        tr[i].style.display = '';
+                    } else if (txtValue === filter) {
+                        tr[i].style.display = '';
+                    } else {
+                        tr[i].style.display = 'none';
+                    }
                 }
             }
-        }
+        }, 300); // 300 ms gecikme
     }
+
+    document.getElementById('searchInput').addEventListener('input', searchById);
 </script>
 
 </body>
