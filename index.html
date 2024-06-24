@@ -91,7 +91,9 @@
             const td = tr[i].getElementsByTagName('td')[0]; // Sadece ilk kolon (ID)
             if (td) {
                 const txtValue = td.textContent || td.innerText;
-                if (txtValue === filter) {
+                if (filter === "") {
+                    tr[i].style.display = '';
+                } else if (txtValue === filter) {
                     tr[i].style.display = '';
                 } else {
                     tr[i].style.display = 'none';
