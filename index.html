@@ -29,6 +29,8 @@
             background-color: #2a2a3b;
             padding: 20px;
             border-radius: 10px;
+            width: 100%;
+            overflow-x: auto;
         }
         table {
             width: 100%;
@@ -56,22 +58,20 @@
 </head>
 <body>
 
-<div class="container-fluid">
-    <h2 class="text-center">Search by ID</h2>
-    <input type="text" id="searchInput" class="form-control" placeholder="Search for ID...">
-    <div class="table-responsive">
-        <table id="dataTable" class="table table-bordered table-hover">
-            <thead class="thead-dark">
-                <tr id="tableHeader">
-                    <!-- Dinamik olarak kolonlar buraya eklenir -->
-                    <th>#</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- JSON verileri buraya yüklenecek -->
-            </tbody>
-        </table>
-    </div>
+<h2 class="text-center">Search by ID</h2>
+<input type="text" id="searchInput" class="form-control" placeholder="Search for ID...">
+<div class="table-responsive">
+    <table id="dataTable" class="table table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr id="tableHeader">
+                <!-- Dinamik olarak kolonlar buraya eklenir -->
+                <th>#</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- JSON verileri buraya yüklenecek -->
+        </tbody>
+    </table>
 </div>
 
 <!-- Bootstrap JS and dependencies -->
