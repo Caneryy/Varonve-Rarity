@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search by ID</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        #searchInput {
+            margin-bottom: 20px;
+            padding: 10px;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Search by ID</h2>
+<input type="text" id="searchInput" onkeyup="searchById()" placeholder="Search for ID...">
+<table id="dataTable">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Property1</th>
+            <th>Property2</th>
+            <!-- Diğer kolonlar buraya eklenebilir -->
+        </tr>
+    </thead>
+    <tbody>
+        <!-- JSON verileri buraya yüklenecek -->
+    </tbody>
+</table>
+
+<script>
+    // JSON dosyasını yükleyip tabloya ekleme
+    fetch('https://raw.githubusercontent.com/Caneryy/Varonve-Rarity/main/varonve-rairty.json')
+        .then(response => response.json())
+        .then(data => {
+            const tableBody = document.querySelector('#dataTable tbody');
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                const idCell = document.createElement('td');
+                idCell.textContent = item.id;
+                row.appendChild(idCell);
+                // Diğer hücreleri ekleyin
+                const property1Cell = document.createElement('td');
+                property1Cell.textContent = item.property1; // Örnek property
+                row.appendChild(property1Cell);
+
+                const property2Cell = document.createElement('td');
+                property2Cell.textContent = item.property2; // Örnek property
+                row.appendChild(property2Cell);
+
+                tableBody.appendChild(row);
+            });
+        });
+
+    // Arama fonksiyonu
+    function searchById() {
+        const input = document.getElementById('searchInput');
+        const filter = input.value.toUpperCase();
+        const table = document.getElementById('dataTable');
+        const tr = table.getElementsByTagName('tr');
+
+        for (let i = 1; i < tr.length; i++) {
+            const td = tr[i].getElementsByTagName('td')[0]; // Sadece ilk kolon (ID)
+            if (td) {
+                const txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = '';
+                } else {
+                    tr[i].style.display = 'none';
+                }
+            }       
+        }
+    }
+</script>
+
+</body>
+</html>
