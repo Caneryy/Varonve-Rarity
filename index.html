@@ -4,7 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search by ID</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        body {
+            margin: 20px;
+        }
+        #searchInput {
+            margin-bottom: 20px;
+            width: 100%;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -16,54 +25,60 @@
             padding: 8px;
             text-align: left;
         }
-        #searchInput {
-            margin-bottom: 20px;
-            padding: 10px;
-            width: 300px;
-        }
     </style>
 </head>
 <body>
 
-<h2>Search by ID</h2>
-<input type="text" id="searchInput" onkeyup="searchById()" placeholder="Search for ID...">
-<table id="dataTable">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Property1</th>
-            <th>Property2</th>
-            <!-- Diğer kolonlar buraya eklenebilir -->
-        </tr>
-    </thead>
-    <tbody>
-        <!-- JSON verileri buraya yüklenecek -->
-    </tbody>
-</table>
+<div class="container">
+    <h2 class="text-center">Search by ID</h2>
+    <input type="text" id="searchInput" class="form-control" onkeyup="searchById()" placeholder="Search for ID...">
+    <div class="table-responsive">
+        <table id="dataTable" class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr id="tableHeader">
+                    <!-- Dinamik olarak kolonlar buraya eklenir -->
+                </tr>
+            </thead>
+            <tbody>
+                <!-- JSON verileri buraya yüklenecek -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
     // JSON dosyasını yükleyip tabloya ekleme
     fetch('https://raw.githubusercontent.com/Caneryy/Varonve-Rarity/main/varonve-rairty.json')
         .then(response => response.json())
         .then(data => {
+            const tableHeader = document.getElementById('tableHeader');
             const tableBody = document.querySelector('#dataTable tbody');
+            
+            // İlk elemanı kullanarak kolonları dinamik olarak oluşturma
+            const columns = Object.keys(data[0]);
+            columns.forEach(column => {
+                const th = document.createElement('th');
+                th.textContent = column;
+                tableHeader.appendChild(th);
+            });
+
+            // Verileri tabloya ekleme
             data.forEach(item => {
                 const row = document.createElement('tr');
-                const idCell = document.createElement('td');
-                idCell.textContent = item.id;
-                row.appendChild(idCell);
-                // Diğer hücreleri ekleyin
-                const property1Cell = document.createElement('td');
-                property1Cell.textContent = item.property1; // Örnek property
-                row.appendChild(property1Cell);
-
-                const property2Cell = document.createElement('td');
-                property2Cell.textContent = item.property2; // Örnek property
-                row.appendChild(property2Cell);
-
+                columns.forEach(column => {
+                    const td = document.createElement('td');
+                    td.textContent = item[column];
+                    row.appendChild(td);
+                });
                 tableBody.appendChild(row);
             });
-        });
+        })
+        .catch(error => console.error('Error fetching JSON:', error));
 
     // Arama fonksiyonu
     function searchById() {
@@ -81,7 +96,7 @@
                 } else {
                     tr[i].style.display = 'none';
                 }
-            }       
+            }
         }
     }
 </script>
