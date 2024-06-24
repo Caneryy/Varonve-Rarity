@@ -20,6 +20,7 @@
             color: #ffffff;
             border: none;
             padding: 10px;
+            border-radius: 5px;
         }
         #searchInput::placeholder {
             color: #aaaaaa;
@@ -36,6 +37,7 @@
         table, th, td {
             white-space: nowrap; /* Hücre içeriğinin ekstra satıra geçmesini önler */
             color: #ffffff;
+            border: none;
         }
         th {
             background-color: #3b3b4f;
@@ -46,6 +48,9 @@
         }
         tr:hover {
             background-color: #3b3b4f;
+        }
+        th, td {
+            border-radius: 10px;
         }
     </style>
 </head>
@@ -133,7 +138,7 @@
                     }
                 }
             }
-        }, 300); // 300 ms gecikme
+        }, 500); // 500 ms gecikme
     }
 
     document.getElementById('searchInput').addEventListener('input', searchById);
