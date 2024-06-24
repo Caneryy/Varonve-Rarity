@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Varonve NFT Rarity Sorted</title>
+    <title>Search by ID</title>
     <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -16,10 +16,8 @@
         }
         table {
             width: 100%;
-            border-collapse: collapse;
         }
         table, th, td {
-            border: 1px solid black;
             white-space: nowrap; /* Hücre içeriğinin ekstra satıra geçmesini önler */
         }
         th, td {
@@ -38,6 +36,7 @@
             <thead class="thead-dark">
                 <tr id="tableHeader">
                     <!-- Dinamik olarak kolonlar buraya eklenir -->
+                    <th>#</th>
                 </tr>
             </thead>
             <tbody>
@@ -69,8 +68,14 @@
             });
 
             // Verileri tabloya ekleme
-            data.forEach(item => {
+            data.forEach((item, index) => {
                 const row = document.createElement('tr');
+                
+                // Sıra numarası hücresini ekleme
+                const indexCell = document.createElement('td');
+                indexCell.textContent = index + 1;
+                row.appendChild(indexCell);
+                
                 columns.forEach(column => {
                     const td = document.createElement('td');
                     td.textContent = item[column];
@@ -89,7 +94,7 @@
         const tr = table.getElementsByTagName('tr');
 
         for (let i = 1; i < tr.length; i++) {
-            const td = tr[i].getElementsByTagName('td')[0]; // Sadece ilk kolon (ID)
+            const td = tr[i].getElementsByTagName('td')[1]; // Sadece ikinci kolon (ID)
             if (td) {
                 const txtValue = td.textContent || td.innerText;
                 if (filter === "") {
